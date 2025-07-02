@@ -19,6 +19,34 @@
   margin-bottom: 24px;
 }
 
+/* 게임 레이아웃 */
+.game-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.board-section {
+  flex: none;
+  min-width: 0;
+}
+
+.info-section {
+  width: 320px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+  .game-layout {
+    flex-direction: column;
+  }
+  
+  .info-section {
+    width: 100%;
+  }
+}
+
 .title-section h1 {
   font-size: 2.25rem;
   font-weight: bold;
@@ -533,7 +561,8 @@
 
 /* 게임 메시지 */
 .game-message {
-  margin-top: 24px;
+  margin-top: 0;
+  margin-bottom: 16px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -682,7 +711,7 @@
 
 /* 게임 가이드 */
 .game-guide {
-  margin-top: 16px;
+  margin-top: 0;
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -692,7 +721,7 @@
 .guide-title {
   font-weight: bold;
   font-size: 1.125rem;
-  margin-bottom: 8px;
+  margin:0 0 16px 0;
 }
 
 .guide-grid {
@@ -702,9 +731,9 @@
   font-size: 0.875rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 320px) {
   .guide-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

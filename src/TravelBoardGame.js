@@ -1712,15 +1712,40 @@ const TravelBoardGame = () => {
     const renderDiceDots = (value) => {
         const dotPositions = {
             1: [[1, 1]],
-            2: [[0, 0], [2, 2]],
-            3: [[0, 0], [1, 1], [2, 2]],
-            4: [[0, 0], [0, 2], [2, 0], [2, 2]],
-            5: [[0, 0], [0, 2], [1, 1], [2, 0], [2, 2]],
-            6: [[0, 0], [0, 2], [1, 0], [1, 2], [2, 0], [2, 2]]
+            2: [
+                [0, 0],
+                [2, 2],
+            ],
+            3: [
+                [0, 0],
+                [1, 1],
+                [2, 2],
+            ],
+            4: [
+                [0, 0],
+                [0, 2],
+                [2, 0],
+                [2, 2],
+            ],
+            5: [
+                [0, 0],
+                [0, 2],
+                [1, 1],
+                [2, 0],
+                [2, 2],
+            ],
+            6: [
+                [0, 0],
+                [0, 2],
+                [1, 0],
+                [1, 2],
+                [2, 0],
+                [2, 2],
+            ],
         };
 
         const dots = dotPositions[value] || [];
-        
+
         return (
             <div className="dice-face">
                 {dots.map((pos, idx) => (
@@ -1729,7 +1754,7 @@ const TravelBoardGame = () => {
                         className="dice-dot"
                         style={{
                             gridRow: pos[0] + 1,
-                            gridColumn: pos[1] + 1
+                            gridColumn: pos[1] + 1,
                         }}
                     />
                 ))}
@@ -1766,7 +1791,7 @@ const TravelBoardGame = () => {
                 setDiceValue(finalRoll);
 
                 // 함정 면역 턴 수 감소
-                setTrapImmunity(prev => Math.max(prev - 1, 0));
+                setTrapImmunity((prev) => Math.max(prev - 1, 0));
 
                 // 플레이어 이동
                 const newPosition = Math.min(playerPosition + finalRoll, 39);
@@ -1828,7 +1853,9 @@ const TravelBoardGame = () => {
             case "trap":
                 // 함정 면역 상태 체크
                 if (trapImmunity > 0) {
-                    message = `🛡️ 운이 좋네요! 최근 함정을 겪어서 이번에는 피할 수 있었어요. (면역 ${trapImmunity - 1}턴 남음)`;
+                    message = `🛡️ 운이 좋네요! 최근 함정을 겪어서 이번에는 피할 수 있었어요. (면역 ${
+                        trapImmunity - 1
+                    }턴 남음)`;
                     break;
                 }
 
@@ -1842,7 +1869,9 @@ const TravelBoardGame = () => {
                 ) {
                     setTimeout(() => {
                         setPlayerPosition((prev) => Math.max(prev - 2, 0));
-                        setGameMessage(`${space.name}으로 2칸 후퇴! (다음 2턴 동안 함정 면역)`);
+                        setGameMessage(
+                            `${space.name}으로 2칸 후퇴! (다음 2턴 동안 함정 면역)`
+                        );
                     }, 1000);
                 } else if (
                     space.name.includes("분실") ||
@@ -1851,7 +1880,9 @@ const TravelBoardGame = () => {
                 ) {
                     setTimeout(() => {
                         setPlayerPosition(0);
-                        setGameMessage("다시 처음부터 계획을 세워보세요! (다음 2턴 동안 함정 면역)");
+                        setGameMessage(
+                            "다시 처음부터 계획을 세워보세요! (다음 2턴 동안 함정 면역)"
+                        );
                     }, 1000);
                 } else if (
                     space.name.includes("길") ||
@@ -1860,7 +1891,9 @@ const TravelBoardGame = () => {
                 ) {
                     setTimeout(() => {
                         setPlayerPosition((prev) => Math.max(prev - 3, 0));
-                        setGameMessage(`${space.name}으로 3칸 후퇴! (다음 2턴 동안 함정 면역)`);
+                        setGameMessage(
+                            `${space.name}으로 3칸 후퇴! (다음 2턴 동안 함정 면역)`
+                        );
                     }, 1000);
                 } else {
                     message += " 잠시 휴식하세요. (다음 2턴 동안 함정 면역)";
@@ -2035,17 +2068,20 @@ const TravelBoardGame = () => {
                             >
                                 목적지 변경
                             </button>
-                            <button
+                            {/* <button
                                 onClick={() => {
                                     console.log("축하 이펙트 테스트 시작");
                                     setShowCelebration(true);
-                                    setTimeout(() => setShowCelebration(false), 3000);
+                                    setTimeout(
+                                        () => setShowCelebration(false),
+                                        3000
+                                    );
                                 }}
                                 className="reset-button"
-                                style={{backgroundColor: '#10b981'}}
+                                style={{ backgroundColor: "#10b981" }}
                             >
                                 축하 테스트
-                            </button>
+                            </button> */}
                         </div>
                     </div>
 
@@ -2161,10 +2197,12 @@ const TravelBoardGame = () => {
             {(showCelebration || destination === "테스트") && (
                 <div className="celebration-overlay">
                     <div className="celebration-message">
-                        <span className="celebration-text">🎊 보너스 발견! 🎊</span>
+                        <span className="celebration-text">
+                            🎊 보너스 발견! 🎊
+                        </span>
                     </div>
                     <div className="fireworks">
-                        {Array.from({length: 15}, (_, i) => (
+                        {Array.from({ length: 15 }, (_, i) => (
                             <div
                                 key={i}
                                 className="firework"
@@ -2172,7 +2210,7 @@ const TravelBoardGame = () => {
                                     left: `${10 + Math.random() * 80}%`,
                                     top: `${10 + Math.random() * 80}%`,
                                     animationDelay: `${Math.random() * 1.5}s`,
-                                    fontSize: `${1.5 + Math.random()}rem`
+                                    fontSize: `${1.5 + Math.random()}rem`,
                                 }}
                             >
                                 🎉
@@ -2181,54 +2219,58 @@ const TravelBoardGame = () => {
                     </div>
                 </div>
             )}
-            
+
             <div className="game-container">
                 <div className="title-section">
                     <h1>🎲 {destination} 여행 게임</h1>
                     <p>부루마블 스타일로 {destination}을(를) 탐험해보세요!</p>
                 </div>
 
-                {renderBoard()}
+                <div className="game-layout">
+                    <div className="board-section">{renderBoard()}</div>
 
-                {/* 게임 메시지 */}
-                <div className="game-message">
-                    <p className="message-text">{gameMessage}</p>
-                    <div className="position-info">
-                        현재 위치:{" "}
-                        <span className="position-name">
-                            {boardSpaces[playerPosition]?.name}
-                        </span>
-                        ({playerPosition + 1}/40)
-                    </div>
-                </div>
+                    <div className="info-section">
+                        {/* 게임 메시지 */}
+                        <div className="game-message">
+                            <p className="message-text">{gameMessage}</p>
+                            <div className="position-info">
+                                현재 위치:{" "}
+                                <span className="position-name">
+                                    {boardSpaces[playerPosition]?.name}
+                                </span>
+                                ({playerPosition + 1}/40)
+                            </div>
+                        </div>
 
-                {/* 게임 가이드 */}
-                <div className="game-guide">
-                    <h3 className="guide-title">게임 가이드</h3>
-                    <div className="guide-grid">
-                        <div className="guide-item">
-                            <div className="guide-color guide-destination"></div>
-                            <span>여행지</span>
-                        </div>
-                        <div className="guide-item">
-                            <div className="guide-color guide-bonus"></div>
-                            <span>보너스</span>
-                        </div>
-                        <div className="guide-item">
-                            <div className="guide-color guide-trap"></div>
-                            <span>함정</span>
-                        </div>
-                        <div className="guide-item">
-                            <div className="guide-color guide-special"></div>
-                            <span>특별</span>
-                        </div>
-                        <div className="guide-item">
-                            <div className="guide-color guide-start"></div>
-                            <span>시작점</span>
-                        </div>
-                        <div className="guide-item">
-                            <div className="guide-color guide-finish"></div>
-                            <span>도착점</span>
+                        {/* 게임 가이드 */}
+                        <div className="game-guide">
+                            <h3 className="guide-title">게임 가이드</h3>
+                            <div className="guide-grid">
+                                <div className="guide-item">
+                                    <div className="guide-color guide-destination"></div>
+                                    <span>여행지</span>
+                                </div>
+                                <div className="guide-item">
+                                    <div className="guide-color guide-bonus"></div>
+                                    <span>보너스</span>
+                                </div>
+                                <div className="guide-item">
+                                    <div className="guide-color guide-trap"></div>
+                                    <span>함정</span>
+                                </div>
+                                <div className="guide-item">
+                                    <div className="guide-color guide-special"></div>
+                                    <span>특별</span>
+                                </div>
+                                <div className="guide-item">
+                                    <div className="guide-color guide-start"></div>
+                                    <span>시작점</span>
+                                </div>
+                                <div className="guide-item">
+                                    <div className="guide-color guide-finish"></div>
+                                    <span>도착점</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
